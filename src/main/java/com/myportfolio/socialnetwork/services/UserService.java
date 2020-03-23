@@ -1,6 +1,7 @@
 package com.myportfolio.socialnetwork.services;
 
 import com.myportfolio.socialnetwork.domain.UserDomain;
+import com.myportfolio.socialnetwork.dtos.UserRequestDTO;
 import com.myportfolio.socialnetwork.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,24 +22,26 @@ public class UserService {
         return userRepository.findById(id).isPresent() ? userRepository.findById(id).get() : null;
     }
 
-    public UserDomain store(UserDomain user) {
-        return userRepository.save(user);
+    public UserDomain store(UserRequestDTO userDTO) {
+        return userRepository.save(this.fromDTO(userDTO));
     }
 
-    public UserDomain update(Long id, UserDomain userFromRequest) {
-        UserDomain userFromDB = this.show(id);
+    public void update(Long id, UserRequestDTO userDTO) {
+        UserDomain user = this.show(id);
 
-        if (userFromDB != null) {
-            userFromDB.setName(userFromRequest.getName());
-            userFromDB.setEmail(userFromRequest.getEmail());
-            return userRepository.save(userFromDB);
+        if (user != null) {
+            user.setName(userDTO.getName());
+            user.setEmail(userDTO.getEmail());
+            userRepository.save(user);
         }
-
-        return null;
     }
 
     public void destroy(Long id) {
         UserDomain userFromDB = this.show(id);
         if (userFromDB != null) userRepository.delete(userFromDB);
+    }
+
+    private UserDomain fromDTO(UserRequestDTO userDTO) {
+        return new UserDomain(userDTO.getName(), userDTO.getEmail(), userDTO.getPassword());
     }
 }
