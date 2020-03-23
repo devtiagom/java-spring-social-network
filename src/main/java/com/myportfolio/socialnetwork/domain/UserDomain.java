@@ -2,17 +2,22 @@ package com.myportfolio.socialnetwork.domain;
 
 import lombok.*;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Entity
+@Table(name = "users")
 public class UserDomain implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Getter
+    @Id
+    @GeneratedValue(generator = "users_seq", strategy = GenerationType.AUTO)
     private Long id;
 
     @Getter @Setter
