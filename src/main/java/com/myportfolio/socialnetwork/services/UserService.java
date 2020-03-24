@@ -1,6 +1,7 @@
 package com.myportfolio.socialnetwork.services;
 
 import com.myportfolio.socialnetwork.domain.UserDomain;
+import com.myportfolio.socialnetwork.domain.enums.UserProfile;
 import com.myportfolio.socialnetwork.dtos.UserRequestDTO;
 import com.myportfolio.socialnetwork.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import java.util.List;
 public class UserService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     public List<UserDomain> index() {
         return userRepository.findAll();
@@ -23,7 +24,7 @@ public class UserService {
     }
 
     public UserDomain store(UserRequestDTO userDTO) {
-        return userRepository.save(this.fromDTO(userDTO));
+        return userRepository.save(this.fromDTO(userDTO).addProfile(UserProfile.USER));
     }
 
     public void update(Long id, UserRequestDTO userDTO) {

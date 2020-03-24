@@ -1,9 +1,13 @@
 package com.myportfolio.socialnetwork.domain;
 
+import com.myportfolio.socialnetwork.domain.enums.UserProfile;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,12 +30,25 @@ public class UserDomain implements Serializable {
     @Getter @Setter
     private String email;
 
-    @Getter
+    @Getter @Setter
     private String password;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "profiles")
+    private Set<Integer> profiles = new HashSet<>();
 
     public UserDomain(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public Set<UserProfile> getProfiles() {
+        return this.profiles.stream().map(UserProfile::toEnum).collect(Collectors.toSet());
+    }
+
+    public UserDomain addProfile(UserProfile profile) {
+        this.profiles.add(profile.getProfileCode());
+        return this;
     }
 }

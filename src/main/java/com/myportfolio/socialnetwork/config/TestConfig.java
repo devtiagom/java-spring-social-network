@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Profile;
 public class TestConfig {
 
     @Autowired
-    DBServiceH2 dbService;
+    private DBServiceH2 dbService;
 
     @Bean
     public boolean instantiateDatabase() {
