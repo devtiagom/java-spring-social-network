@@ -25,12 +25,15 @@ public class UserDomain implements Serializable {
     private Long id;
 
     @Getter @Setter
+    @Column(nullable = false)
     private String name;
 
     @Getter @Setter
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Getter @Setter
+    @Column(nullable = false)
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
