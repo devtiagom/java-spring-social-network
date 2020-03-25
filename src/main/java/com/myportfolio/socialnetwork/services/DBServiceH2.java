@@ -20,23 +20,76 @@ public class DBServiceH2 {
 
     public void instantiateTestDatabase() {
         UserDomain user01 = new UserDomain(
-                "Fulano de Tal",
-                "fulano.tal@gmail.com",
+                "Homer Jay Simpson",
+                "homer.simpson@gmail.com",
                 bCryptPasswordEncoder.encode("1234")
         ).addProfile(UserProfile.USER).addProfile(UserProfile.ADMIN);
 
         UserDomain user02 = new UserDomain(
-                "Beltrano de Tal",
-                "beltrano.tal@gmail.com",
+                "Marge Bouvier Simpson",
+                "marge.simpson@gmail.com",
                 bCryptPasswordEncoder.encode("1234")
         ).addProfile(UserProfile.USER);
 
         UserDomain user03 = new UserDomain(
-                "Ciclano de Tal",
-                "ciclano.tal@gmail.com",
+                "Bart Simpson",
+                "bart.simpson@gmail.com",
                 bCryptPasswordEncoder.encode("1234")
         ).addProfile(UserProfile.USER);
 
-        userRepository.saveAll(Arrays.asList(user01, user02, user03));
+        UserDomain user04 = new UserDomain(
+                "Lisa Simpson",
+                "lisa.simpson@gmail.com",
+                bCryptPasswordEncoder.encode("1234")
+        ).addProfile(UserProfile.USER);
+
+        UserDomain user05 = new UserDomain(
+                "Meg Simpson",
+                "meg.simpson@gmail.com",
+                bCryptPasswordEncoder.encode("1234")
+        ).addProfile(UserProfile.USER);
+
+        UserDomain user06 = new UserDomain(
+                "Abraham Simpson",
+                "abraham.simpson@gmail.com",
+                bCryptPasswordEncoder.encode("1234")
+        ).addProfile(UserProfile.USER);
+
+        UserDomain user07 = new UserDomain(
+                "Apu Nahasapeemapetilon",
+                "apu.nahasapeemapetilon@gmail.com",
+                bCryptPasswordEncoder.encode("1234")
+        ).addProfile(UserProfile.USER);
+
+        UserDomain user08 = new UserDomain(
+                "Barney Gumble",
+                "barney.gumble@gmail.com",
+                bCryptPasswordEncoder.encode("1234")
+        ).addProfile(UserProfile.USER);
+
+        UserDomain user09 = new UserDomain(
+                "Clancy Wiggum",
+                "chief.wiggum@gmail.com",
+                bCryptPasswordEncoder.encode("1234")
+        ).addProfile(UserProfile.USER);
+
+        UserDomain user10 = new UserDomain(
+                "Edna Krabappel",
+                "ms.krabappel@gmail.com",
+                bCryptPasswordEncoder.encode("1234")
+        ).addProfile(UserProfile.USER);
+
+        userRepository.saveAll(Arrays.asList(
+                user01,
+                user02,
+                user03,
+                user04,
+                user05,
+                user06,
+                user07,
+                user08,
+                user09,
+                user10
+        ));
     }
 }
