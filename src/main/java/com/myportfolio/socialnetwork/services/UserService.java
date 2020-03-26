@@ -3,6 +3,7 @@ package com.myportfolio.socialnetwork.services;
 import com.myportfolio.socialnetwork.domain.UserDomain;
 import com.myportfolio.socialnetwork.domain.enums.UserProfile;
 import com.myportfolio.socialnetwork.dtos.UserRequestDTO;
+import com.myportfolio.socialnetwork.dtos.UserRequestUpdateDTO;
 import com.myportfolio.socialnetwork.repositories.UserRepository;
 import com.myportfolio.socialnetwork.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class UserService {
         return this.userRepository.save(this.fromDTO(userDTO).addProfile(UserProfile.USER));
     }
 
-    public void update(Long id, UserRequestDTO userDTO) {
+    public void update(Long id, UserRequestUpdateDTO userDTO) {
         UserDomain user = this.show(id);
 
         if (user != null) {

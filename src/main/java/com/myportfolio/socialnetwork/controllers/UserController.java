@@ -2,6 +2,7 @@ package com.myportfolio.socialnetwork.controllers;
 
 import com.myportfolio.socialnetwork.domain.UserDomain;
 import com.myportfolio.socialnetwork.dtos.UserRequestDTO;
+import com.myportfolio.socialnetwork.dtos.UserRequestUpdateDTO;
 import com.myportfolio.socialnetwork.dtos.UserResponseDTO;
 import com.myportfolio.socialnetwork.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -37,7 +39,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> store(@RequestBody UserRequestDTO userDTO) {
+    public ResponseEntity<Void> store(@Valid @RequestBody UserRequestDTO userDTO) {
         UserDomain user = userService.store(userDTO);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -48,7 +50,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody UserRequestDTO userDTO) {
+    public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody UserRequestUpdateDTO userDTO) {
         userService.update(id, userDTO);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
