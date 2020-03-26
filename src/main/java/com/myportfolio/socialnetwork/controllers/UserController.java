@@ -5,14 +5,13 @@ import com.myportfolio.socialnetwork.dtos.UserRequestDTO;
 import com.myportfolio.socialnetwork.dtos.UserResponseDTO;
 import com.myportfolio.socialnetwork.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -22,11 +21,12 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<UserResponseDTO>> index() {
-        List<UserResponseDTO> usersDTO = userService.index()
-                .stream()
-                .map(UserResponseDTO::new)
-                .collect(Collectors.toList());
+    public ResponseEntity<Page<UserResponseDTO>> index(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "24") Integer size,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction,
+            @RequestParam(value = "orderBy", defaultValue = "name") String orderBy) {
+        Page<UserResponseDTO> usersDTO = userService.index(page, size, direction, orderBy).map(UserResponseDTO::new);
         return ResponseEntity.status(HttpStatus.OK).body(usersDTO);
     }
 

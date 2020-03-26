@@ -5,10 +5,14 @@ import com.myportfolio.socialnetwork.domain.enums.UserProfile;
 import com.myportfolio.socialnetwork.dtos.UserRequestDTO;
 import com.myportfolio.socialnetwork.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -19,8 +23,8 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public List<UserDomain> index() {
-        return this.userRepository.findAll();
+    public Page<UserDomain> index(Integer page, Integer size, String direction, String orderBy) {
+        return this.userRepository.findAll(PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy));
     }
 
     public UserDomain show(Long id) {
