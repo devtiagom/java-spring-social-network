@@ -4,15 +4,13 @@ import com.myportfolio.socialnetwork.domain.UserDomain;
 import com.myportfolio.socialnetwork.domain.enums.UserProfile;
 import com.myportfolio.socialnetwork.dtos.UserRequestDTO;
 import com.myportfolio.socialnetwork.repositories.UserRepository;
+import com.myportfolio.socialnetwork.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -28,7 +26,9 @@ public class UserService {
     }
 
     public UserDomain show(Long id) {
-        return this.userRepository.findById(id).isPresent() ? this.userRepository.findById(id).get() : null;
+        return this.userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + id + ", Tipo: " + UserDomain.class.getName()
+        ));
     }
 
     public UserDomain store(UserRequestDTO userDTO) {
