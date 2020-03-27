@@ -25,7 +25,7 @@ public class DBServiceH2 {
 
     public void instantiateTestDatabase() {
         UserDomain user01 = new UserDomain(
-                "Homer Jay Simpson",
+                "Homer J. Simpson",
                 "homer.simpson@gmail.com",
                 bCryptPasswordEncoder.encode("1234")
         ).addProfile(UserProfile.USER).addProfile(UserProfile.ADMIN);
@@ -37,7 +37,7 @@ public class DBServiceH2 {
         ).addProfile(UserProfile.USER);
 
         UserDomain user03 = new UserDomain(
-                "Bart Simpson",
+                "Bartholomew Simpson",
                 "bart.simpson@gmail.com",
                 bCryptPasswordEncoder.encode("1234")
         ).addProfile(UserProfile.USER);
@@ -109,6 +109,12 @@ public class DBServiceH2 {
                 user01
         );
 
-        postRepository.saveAll(Arrays.asList(post01, post02));
+        PostDomain post03 = new PostDomain(
+                "Frases do Bart",
+                "Ay caramba!",
+                user03
+        );
+
+        postRepository.saveAll(Arrays.asList(post01, post02, post03));
     }
 }

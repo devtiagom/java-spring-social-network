@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @NoArgsConstructor
@@ -23,6 +24,6 @@ public class PostRequestDTO implements Serializable {
     @Length(max = 280, message = "O campo deve ter no máximo 280 caracteres")
     private String content;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
+    @NotNull(message = "Preenchimento obrigatório")
     private Long authorId;
 }
