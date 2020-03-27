@@ -24,10 +24,4 @@ public class UserRequestUpdateDTO implements Serializable {
 
     @Length(min = 4, max = 8, message = "O campo senha deve ter entre 4 e 8 caracteres")
     private String password;
-
-    public UserRequestUpdateDTO(UserDomain userDomain) {
-        this.name = userDomain.getName();
-        this.email = userDomain.getEmail();
-        this.password = userDomain.getPassword();
-    }
 }

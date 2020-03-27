@@ -3,6 +3,7 @@ package com.myportfolio.socialnetwork.services;
 import com.myportfolio.socialnetwork.domain.PostDomain;
 import com.myportfolio.socialnetwork.domain.UserDomain;
 import com.myportfolio.socialnetwork.dtos.PostRequestDTO;
+import com.myportfolio.socialnetwork.dtos.PostRequestUpdateDTO;
 import com.myportfolio.socialnetwork.repositories.PostRepository;
 import com.myportfolio.socialnetwork.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,21 @@ public class PostService {
 
     public PostDomain store(PostRequestDTO postDTO) {
         return this.postRepository.save(this.fromDTO(postDTO));
+    }
+
+    public void update(Long id, PostRequestUpdateDTO postDTO) {
+        PostDomain post = this.show(id);
+
+        if (post != null) {
+            if (postDTO.getTitle() != null) post.setTitle(postDTO.getTitle());
+            if (postDTO.getContent() != null) post.setContent(postDTO.getContent());
+            this.postRepository.save(post);
+        }
+    }
+
+    public void destroy(Long id) {
+        PostDomain postFromDB = this.show(id);
+        if (postFromDB != null) this.postRepository.delete(postFromDB);
     }
 
     private PostDomain fromDTO(PostRequestDTO postDTO) {

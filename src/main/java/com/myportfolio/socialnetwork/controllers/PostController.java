@@ -2,6 +2,7 @@ package com.myportfolio.socialnetwork.controllers;
 
 import com.myportfolio.socialnetwork.domain.PostDomain;
 import com.myportfolio.socialnetwork.dtos.PostRequestDTO;
+import com.myportfolio.socialnetwork.dtos.PostRequestUpdateDTO;
 import com.myportfolio.socialnetwork.dtos.PostResponseDTO;
 import com.myportfolio.socialnetwork.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,17 @@ public class PostController {
                 .buildAndExpand(post.getId())
                 .toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody PostRequestUpdateDTO postDTO) {
+        postService.update(id, postDTO);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> destroy(@PathVariable Long id) {
+        postService.destroy(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
