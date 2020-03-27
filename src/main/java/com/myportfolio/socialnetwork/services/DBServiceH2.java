@@ -1,7 +1,9 @@
 package com.myportfolio.socialnetwork.services;
 
+import com.myportfolio.socialnetwork.domain.PostDomain;
 import com.myportfolio.socialnetwork.domain.UserDomain;
 import com.myportfolio.socialnetwork.domain.enums.UserProfile;
+import com.myportfolio.socialnetwork.repositories.PostRepository;
 import com.myportfolio.socialnetwork.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,6 +16,9 @@ public class DBServiceH2 {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PostRepository postRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -91,5 +96,19 @@ public class DBServiceH2 {
                 user09,
                 user10
         ));
+
+        PostDomain post01 = new PostDomain(
+                "Frases do Homer",
+                "Você pode ter todo o dinheiro do mundo mas existe algo que você nunca poderá comprar: Um dinossauro.",
+                user01
+        );
+
+        PostDomain post02 = new PostDomain(
+                "Frases do Homer 2",
+                "A culpa é minha e eu coloco em quem eu quiser.",
+                user01
+        );
+
+        postRepository.saveAll(Arrays.asList(post01, post02));
     }
 }
