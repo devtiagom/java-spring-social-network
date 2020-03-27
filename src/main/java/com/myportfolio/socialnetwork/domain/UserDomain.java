@@ -54,4 +54,8 @@ public class UserDomain implements Serializable {
         this.profiles.add(profile.getProfileCode());
         return this;
     }
+
+    public void setId(Long id) {
+        if (this.id != null) this.id = id;
+    }
 }

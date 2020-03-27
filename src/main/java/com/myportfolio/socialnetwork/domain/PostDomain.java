@@ -26,12 +26,15 @@ public class PostDomain implements Serializable {
     private Long id;
 
     @Getter
+    @Column(nullable = false)
     private Date date;
 
     @Getter @Setter
+    @Column(nullable = false)
     private String title;
 
     @Getter @Setter
+    @Column(nullable = false)
     private String content;
 
     @Getter
@@ -40,7 +43,7 @@ public class PostDomain implements Serializable {
     @Getter
     private Integer dislikes;
 
-    @Getter @Setter
+    @Getter
     @ManyToOne
     @JoinColumn(name = "id_author")
     private UserDomain author;
@@ -65,6 +68,10 @@ public class PostDomain implements Serializable {
 
     public void setId(Long id) {
         if (this.id != null) this.id = id;
+    }
+
+    public void setAuthor(UserDomain author) {
+        if (this.author != null) this.author = author;
     }
 
     public void incLikesCount() {
