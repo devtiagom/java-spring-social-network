@@ -1,6 +1,8 @@
 package com.myportfolio.socialnetwork.controllers;
 
 import com.myportfolio.socialnetwork.domain.PostDomain;
+import com.myportfolio.socialnetwork.dtos.PostRequestDTO;
+import com.myportfolio.socialnetwork.dtos.PostResponseDTO;
 import com.myportfolio.socialnetwork.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/posts")
@@ -20,14 +23,14 @@ public class PostController {
     private PostService postService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<PostDomain>> index() {
-        List<PostDomain> posts = postService.index();
-        return ResponseEntity.status(HttpStatus.OK).body(posts);
+    public ResponseEntity<List<PostResponseDTO>> index() {
+        List<PostResponseDTO> postsDTO = postService.index().stream().map(PostResponseDTO::new).collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(postsDTO);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<PostDomain> show(@PathVariable Long id) {
-        PostDomain post = postService.show(id);
-        return ResponseEntity.status(HttpStatus.OK).body(post);
+    public ResponseEntity<PostResponseDTO> show(@PathVariable Long id) {
+        PostResponseDTO postDTO = new PostResponseDTO(postService.show(id));
+        return ResponseEntity.status(HttpStatus.OK).body(postDTO);
     }
 }
