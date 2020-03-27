@@ -12,8 +12,8 @@ import java.util.Date;
 @EqualsAndHashCode
 @ToString
 @Entity
-@Table(name = "posts")
-public class PostDomain implements Serializable {
+@Table(name = "comments")
+public class CommentDomain implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,16 +22,12 @@ public class PostDomain implements Serializable {
 
     @Getter
     @Id
-    @GeneratedValue(generator = "posts_seq", strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "comments_seq", strategy = GenerationType.AUTO)
     private Long id;
 
     @Getter
     @Column(nullable = false)
     private Date date;
-
-    @Getter @Setter
-    @Column(nullable = false)
-    private String title;
 
     @Getter @Setter
     @Column(nullable = false)
@@ -47,29 +43,38 @@ public class PostDomain implements Serializable {
 
     @Getter
     @ManyToOne
-    @JoinColumn(name = "id_author")
+    @JoinColumn(name = "post_id")
+    private PostDomain post;
+
+    @Getter
+    @ManyToOne
+    @JoinColumn(name = "author_id")
     private UserDomain author;
 
-    public PostDomain() {
+    public CommentDomain() {
         this.date = new Date(System.currentTimeMillis());
-        this.likes = PostDomain.INITIAL_LIKES_COUNT;
-        this.dislikes = PostDomain.INITIAL_DISLIKES_COUNT;
+        this.likes = CommentDomain.INITIAL_LIKES_COUNT;
+        this.dislikes = CommentDomain.INITIAL_DISLIKES_COUNT;
     }
 
-    public PostDomain(String title, String content, UserDomain author) {
+    public CommentDomain(String content, PostDomain post, UserDomain author) {
         this();
-        this.title = title;
         this.content = content;
+        this.post = post;
         this.author = author;
     }
 
-    public PostDomain(Long id, String title, String content, UserDomain author) {
-        this(title, content, author);
+    public CommentDomain(Long id, String content, PostDomain post, UserDomain author) {
+        this(content, post, author);
         this.id = id;
     }
 
     public void setId(Long id) {
         if (this.id != null) this.id = id;
+    }
+
+    public void setPost(PostDomain post) {
+        if (this.post != null) this.post = post;
     }
 
     public void setAuthor(UserDomain author) {
