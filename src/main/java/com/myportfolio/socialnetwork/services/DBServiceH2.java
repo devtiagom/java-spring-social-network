@@ -115,6 +115,30 @@ public class DBServiceH2 {
                 user03
         );
 
-        postRepository.saveAll(Arrays.asList(post01, post02, post03));
+        PostDomain post04 = new PostDomain(
+                "Frases do Bart 2",
+                "Eu não estou autorizado a demitir professores substitutos",
+                user03
+        );
+
+        PostDomain post05 = new PostDomain(
+                "Frases do Bart 3",
+                "Eu não farei download ilegal deste filme",
+                user03
+        );
+
+        PostDomain post06 = new PostDomain(
+                "Frases do Homer 3",
+                "Se Deus não quisesse que nós comêssemos as vacas, não as teria feito de carne",
+                user01
+        );
+
+        PostDomain post07 = new PostDomain(
+                "Frases do Homer 4",
+                "Eu não sou normalmente alguém que ora, mas se você estiver aí em cima, por favor me salve, Superman",
+                user01
+        );
+
+        postRepository.saveAll(Arrays.asList(post01, post02, post03, post04, post05, post06, post07));
     }
 }

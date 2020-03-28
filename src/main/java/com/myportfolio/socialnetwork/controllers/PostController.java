@@ -6,6 +6,7 @@ import com.myportfolio.socialnetwork.dtos.PostRequestUpdateDTO;
 import com.myportfolio.socialnetwork.dtos.PostResponseDTO;
 import com.myportfolio.socialnetwork.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +25,13 @@ public class PostController {
     private PostService postService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<PostResponseDTO>> index() {
-        List<PostResponseDTO> postsDTO = postService.index()
-                .stream()
-                .map(PostResponseDTO::new)
-                .collect(Collectors.toList());
+    public ResponseEntity<Page<PostResponseDTO>> index(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "24") Integer size,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction,
+            @RequestParam(value = "orderBy", defaultValue = "title") String orderBy
+    ) {
+        Page<PostResponseDTO> postsDTO = postService.index(page, size, direction, orderBy).map(PostResponseDTO::new);
         return ResponseEntity.status(HttpStatus.OK).body(postsDTO);
     }
 

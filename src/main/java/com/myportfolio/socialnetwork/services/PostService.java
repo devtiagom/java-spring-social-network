@@ -7,6 +7,9 @@ import com.myportfolio.socialnetwork.dtos.PostRequestUpdateDTO;
 import com.myportfolio.socialnetwork.repositories.PostRepository;
 import com.myportfolio.socialnetwork.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +23,8 @@ public class PostService {
     @Autowired
     private UserService userService;
 
-    public List<PostDomain> index() {
-        return this.postRepository.findAll();
+    public Page<PostDomain> index(Integer page, Integer size, String direction, String orderBy) {
+        return this.postRepository.findAll(PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy));
     }
 
     public PostDomain show(Long id) {

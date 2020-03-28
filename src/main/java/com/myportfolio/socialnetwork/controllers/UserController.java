@@ -27,7 +27,8 @@ public class UserController {
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "24") Integer size,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction,
-            @RequestParam(value = "orderBy", defaultValue = "name") String orderBy) {
+            @RequestParam(value = "orderBy", defaultValue = "name") String orderBy
+    ) {
         Page<UserResponseDTO> usersDTO = userService.index(page, size, direction, orderBy).map(UserResponseDTO::new);
         return ResponseEntity.status(HttpStatus.OK).body(usersDTO);
     }
