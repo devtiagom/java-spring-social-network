@@ -12,8 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class PostService {
 
@@ -50,6 +48,11 @@ public class PostService {
     public void destroy(Long id) {
         PostDomain postFromDB = this.show(id);
         if (postFromDB != null) this.postRepository.delete(postFromDB);
+    }
+
+    public Page<PostDomain> findByAuthor(Long authorId, Integer page, Integer size, String direction, String orderBy) {
+        UserDomain author = this.userService.show(authorId);
+        return this.postRepository.findAllByAuthor(author, PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy));
     }
 
     private PostDomain fromDTO(PostRequestDTO postDTO) {
