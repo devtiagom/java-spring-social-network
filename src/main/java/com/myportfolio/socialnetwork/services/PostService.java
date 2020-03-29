@@ -52,11 +52,13 @@ public class PostService {
 
     public Page<PostDomain> findByAuthor(Long authorId, Integer page, Integer size, String direction, String orderBy) {
         UserDomain author = this.userService.show(authorId);
+        if (author == null) return null;
         return this.postRepository.findAllByAuthor(author, PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy));
     }
 
     private PostDomain fromDTO(PostRequestDTO postDTO) {
         UserDomain author = this.userService.show(postDTO.getAuthorId());
+        if (author == null) return null;
         return new PostDomain(postDTO.getTitle(), postDTO.getContent(), author);
     }
 }

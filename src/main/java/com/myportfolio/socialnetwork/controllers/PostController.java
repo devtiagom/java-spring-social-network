@@ -1,9 +1,11 @@
 package com.myportfolio.socialnetwork.controllers;
 
 import com.myportfolio.socialnetwork.domain.PostDomain;
+import com.myportfolio.socialnetwork.dtos.CommentResponseDTO;
 import com.myportfolio.socialnetwork.dtos.PostRequestDTO;
 import com.myportfolio.socialnetwork.dtos.PostRequestUpdateDTO;
 import com.myportfolio.socialnetwork.dtos.PostResponseDTO;
+import com.myportfolio.socialnetwork.services.CommentService;
 import com.myportfolio.socialnetwork.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,9 @@ public class PostController {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private CommentService commentService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Page<PostResponseDTO>> index(
@@ -60,5 +65,18 @@ public class PostController {
     public ResponseEntity<Void> destroy(@PathVariable Long id) {
         this.postService.destroy(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @RequestMapping(value = "/{id}/comments", method = RequestMethod.GET)
+    public ResponseEntity<Page<CommentResponseDTO>> findPostComments(
+            @PathVariable Long id,
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "24") Integer size,
+            @RequestParam(value = "direction", defaultValue = "DESC") String direction,
+            @RequestParam(value = "orderBy", defaultValue = "date") String orderBy
+    ) {
+        Page<CommentResponseDTO> postComments = this.commentService.findByPost(id, page, size, direction, orderBy)
+                .map(CommentResponseDTO::new);
+        return ResponseEntity.status(HttpStatus.OK).body(postComments);
     }
 }

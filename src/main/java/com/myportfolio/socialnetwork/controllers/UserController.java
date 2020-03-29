@@ -75,7 +75,8 @@ public class UserController {
             @RequestParam(value = "direction", defaultValue = "DESC") String direction,
             @RequestParam(value = "orderBy", defaultValue = "date") String orderBy
     ) {
-        Page<PostResponseDTO> userPosts = this.postService.findByAuthor(id, page, size, direction, orderBy).map(PostResponseDTO::new);
+        Page<PostResponseDTO> userPosts = this.postService.findByAuthor(id, page, size, direction, orderBy)
+                .map(PostResponseDTO::new);
         return ResponseEntity.status(HttpStatus.OK).body(userPosts);
     }
 }

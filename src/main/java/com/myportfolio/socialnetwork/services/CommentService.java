@@ -53,9 +53,16 @@ public class CommentService {
         if (commentFromDB != null) this.commentRepository.delete(commentFromDB);
     }
 
+    public Page<CommentDomain> findByPost(Long postId, Integer page, Integer size, String direction, String orderBy) {
+        PostDomain post = this.postService.show(postId);
+        if (post == null) return null;
+        return this.commentRepository.findAllByPost(post, PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy));
+    }
+
     private CommentDomain fromDTO(CommentRequestDTO commentDTO) {
         PostDomain post = this.postService.show(commentDTO.getPostId());
         UserDomain author = this.userService.show(commentDTO.getAuthorId());
+        if (post == null || author == null) return null;
         return new CommentDomain(commentDTO.getContent(), post, author);
     }
 }

@@ -122,56 +122,62 @@ public class DBServiceH2 {
 
         PostDomain post04 = new PostDomain(
                 "Frases do Bart 2",
-                "Eu não estou autorizado a demitir professores substitutos",
+                "Eu não estou autorizado a demitir professores substitutos.",
                 user03
         );
 
         PostDomain post05 = new PostDomain(
                 "Frases do Bart 3",
-                "Eu não farei download ilegal deste filme",
+                "Eu não farei download ilegal deste filme.",
                 user03
         );
 
         PostDomain post06 = new PostDomain(
                 "Frases do Homer 3",
-                "Se Deus não quisesse que nós comêssemos as vacas, não as teria feito de carne",
+                "Se Deus não quisesse que nós comêssemos as vacas, não as teria feito de carne.",
                 user01
         );
 
         PostDomain post07 = new PostDomain(
                 "Frases do Homer 4",
-                "Eu não sou normalmente alguém que ora, mas se você estiver aí em cima, por favor me salve, Superman",
+                "Eu não sou normalmente alguém que ora, mas se você estiver aí em cima, por favor me salve, Superman.",
                 user01
         );
 
         this.postRepository.saveAll(Arrays.asList(post01, post02, post03, post04, post05, post06, post07));
 
-        CommentDomain comment01 = new CommentDomain("Shut up Hommer",
+        CommentDomain comment01 = new CommentDomain(
+                "Lotus eleatess ducunt ad byssus. Cum contencio favere, omnes classises experientia velox, grandis lacteaes.",
                 post01,
                 user02
         );
 
-        CommentDomain comment02 = new CommentDomain("Ay Caramba",
+        CommentDomain comment02 = new CommentDomain(
+                "Ay Caramba.",
                 post01,
                 user03
         );
 
-        CommentDomain comment03 = new CommentDomain("Shut up Hommer",
+        CommentDomain comment03 = new CommentDomain(
+                "Shut up Hommer.",
                 post02,
                 user03
         );
 
-        CommentDomain comment04 = new CommentDomain("dui faucibus in ornare quam viverra orci sagittis eu volutpat",
+        CommentDomain comment04 = new CommentDomain(
+                "dui faucibus in ornare quam viverra orci sagittis eu volutpat.",
                 post02,
                 user04
         );
 
-        CommentDomain comment05 = new CommentDomain("Aid neque aliquam vestibulum morbi blandit cursus risus at ultrices",
+        CommentDomain comment05 = new CommentDomain(
+                "Aid neque aliquam vestibulum morbi blandit cursus risus at ultrices.",
                 post03,
                 user04
         );
 
-        CommentDomain comment06 = new CommentDomain("pellentesque sit amet porttitor eget dolor morbi non arcu risus",
+        CommentDomain comment06 = new CommentDomain(
+                "pellentesque sit amet porttitor eget dolor morbi non arcu risus.",
                 post07,
                 user04
         );
