@@ -10,12 +10,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PostRequestUpdateDTO implements Serializable {
+public class CommentRequestUpdateDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Length(max = 50, message = "O campo deve ter no máximo 50 caracteres")
-    private String title;
 
     @Length(max = 280, message = "O campo deve ter no máximo 280 caracteres")
     private String content;

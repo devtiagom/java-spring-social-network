@@ -36,12 +36,12 @@ public class PostService {
     }
 
     public void update(Long id, PostRequestUpdateDTO postDTO) {
-        PostDomain post = this.show(id);
+        PostDomain postFromDB = this.show(id);
 
-        if (post != null) {
-            if (postDTO.getTitle() != null) post.setTitle(postDTO.getTitle());
-            if (postDTO.getContent() != null) post.setContent(postDTO.getContent());
-            this.postRepository.save(post);
+        if (postFromDB != null) {
+            if (postDTO.getTitle() != null) postFromDB.setTitle(postDTO.getTitle());
+            if (postDTO.getContent() != null) postFromDB.setContent(postDTO.getContent());
+            this.postRepository.save(postFromDB);
         }
     }
 

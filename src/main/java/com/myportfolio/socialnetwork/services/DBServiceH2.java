@@ -1,8 +1,10 @@
 package com.myportfolio.socialnetwork.services;
 
+import com.myportfolio.socialnetwork.domain.CommentDomain;
 import com.myportfolio.socialnetwork.domain.PostDomain;
 import com.myportfolio.socialnetwork.domain.UserDomain;
 import com.myportfolio.socialnetwork.domain.enums.UserProfile;
+import com.myportfolio.socialnetwork.repositories.CommentRepository;
 import com.myportfolio.socialnetwork.repositories.PostRepository;
 import com.myportfolio.socialnetwork.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class DBServiceH2 {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -84,7 +89,7 @@ public class DBServiceH2 {
                 bCryptPasswordEncoder.encode("1234")
         ).addProfile(UserProfile.USER);
 
-        userRepository.saveAll(Arrays.asList(
+        this.userRepository.saveAll(Arrays.asList(
                 user01,
                 user02,
                 user03,
@@ -139,6 +144,38 @@ public class DBServiceH2 {
                 user01
         );
 
-        postRepository.saveAll(Arrays.asList(post01, post02, post03, post04, post05, post06, post07));
+        this.postRepository.saveAll(Arrays.asList(post01, post02, post03, post04, post05, post06, post07));
+
+        CommentDomain comment01 = new CommentDomain("Shut up Hommer",
+                post01,
+                user02
+        );
+
+        CommentDomain comment02 = new CommentDomain("Ay Caramba",
+                post01,
+                user03
+        );
+
+        CommentDomain comment03 = new CommentDomain("Shut up Hommer",
+                post02,
+                user03
+        );
+
+        CommentDomain comment04 = new CommentDomain("dui faucibus in ornare quam viverra orci sagittis eu volutpat",
+                post02,
+                user04
+        );
+
+        CommentDomain comment05 = new CommentDomain("Aid neque aliquam vestibulum morbi blandit cursus risus at ultrices",
+                post03,
+                user04
+        );
+
+        CommentDomain comment06 = new CommentDomain("pellentesque sit amet porttitor eget dolor morbi non arcu risus",
+                post07,
+                user04
+        );
+
+        this.commentRepository.saveAll(Arrays.asList(comment01, comment02, comment03, comment04, comment05, comment06));
     }
 }

@@ -37,12 +37,12 @@ public class UserService {
     }
 
     public void update(Long id, UserRequestUpdateDTO userDTO) {
-        UserDomain user = this.show(id);
+        UserDomain userFromDB = this.show(id);
 
-        if (user != null) {
-            if (userDTO.getName() != null) user.setName(userDTO.getName());
-            if (userDTO.getEmail() != null) user.setEmail(userDTO.getEmail());
-            this.userRepository.save(user);
+        if (userFromDB != null) {
+            if (userDTO.getName() != null) userFromDB.setName(userDTO.getName());
+            if (userDTO.getEmail() != null) userFromDB.setEmail(userDTO.getEmail());
+            this.userRepository.save(userFromDB);
         }
     }
 
