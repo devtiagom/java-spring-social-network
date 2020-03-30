@@ -79,4 +79,10 @@ public class PostController {
                 .map(CommentResponseDTO::new);
         return ResponseEntity.status(HttpStatus.OK).body(postComments);
     }
+
+    @RequestMapping(value = "/{id}/inc-likes", method = RequestMethod.PUT)
+    public ResponseEntity<Integer> incLikes(@PathVariable Long id) {
+        Integer likesCount = this.postService.incLikes(id);
+        return ResponseEntity.status(HttpStatus.OK).body(likesCount);
+    }
 }

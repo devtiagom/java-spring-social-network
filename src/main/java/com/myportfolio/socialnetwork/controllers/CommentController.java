@@ -61,4 +61,10 @@ public class CommentController {
         this.commentService.destroy(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @RequestMapping(value = "/{id}/inc-likes", method = RequestMethod.PUT)
+    public ResponseEntity<Integer> incLikes(@PathVariable Long id) {
+        Integer likesCount = this.commentService.incLikes(id);
+        return ResponseEntity.status(HttpStatus.OK).body(likesCount);
+    }
 }

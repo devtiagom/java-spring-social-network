@@ -59,6 +59,14 @@ public class CommentService {
         return this.commentRepository.findAllByPost(post, PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy));
     }
 
+    public Integer incLikes(Long id) {
+        CommentDomain commentFromDB = this.show(id);
+        if (commentFromDB == null) return null;
+        commentFromDB.incLikesCount();
+        this.commentRepository.save(commentFromDB);
+        return commentFromDB.getLikes();
+    }
+
     private CommentDomain fromDTO(CommentRequestDTO commentDTO) {
         PostDomain post = this.postService.show(commentDTO.getPostId());
         UserDomain author = this.userService.show(commentDTO.getAuthorId());

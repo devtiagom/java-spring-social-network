@@ -56,6 +56,14 @@ public class PostService {
         return this.postRepository.findAllByAuthor(author, PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy));
     }
 
+    public Integer incLikes(Long id) {
+        PostDomain postFromDB = this.show(id);
+        if (postFromDB == null) return null;
+        postFromDB.incLikesCount();
+        this.postRepository.save(postFromDB);
+        return postFromDB.getLikes();
+    }
+
     private PostDomain fromDTO(PostRequestDTO postDTO) {
         UserDomain author = this.userService.show(postDTO.getAuthorId());
         if (author == null) return null;
